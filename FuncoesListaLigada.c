@@ -146,6 +146,25 @@ pNo copiaListaRecursivamente ( pNo l1 )
 
 }
 
+// função que adiciona um elemento no Tail de uma lista recursivamente
+pNo adicionaElementoTail  ( pNo p, int x )
+{
+
+    if ( p == NULL )
+    {
+
+        p = adicionaElemento ( p, x ) ;
+
+        return p ;
+
+    }
+
+    p -> prox = adicionaElementoTail ( p -> prox, x ) ;
+
+    return p ;
+
+}
+
 // funçao principal de exemplo do programa
 int main ( void )
 {
