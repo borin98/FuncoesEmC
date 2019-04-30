@@ -165,6 +165,29 @@ pNo adicionaElementoTail  ( pNo p, int x )
 
 }
 
+pNo adicionaElementoTailIterativo ( pNo p, int x )
+{
+
+  pNo aux = malloc ( sizeof ( No ) ) ;
+  pNo percorre ;
+
+  if ( p == NULL )
+  {
+
+    return adicionaElemento ( p, x ) ;
+
+  }
+
+  for ( percorre = p; percorre -> prox != NULL; percorre = percorre -> prox ) ; // percorre até o fim da lista
+
+  aux -> dado = x ;
+  aux -> prox = 0 ;
+
+  percorre -> prox = aux ;
+
+  return p ;
+}
+
 // funçao principal de exemplo do programa
 int main ( void )
 {
