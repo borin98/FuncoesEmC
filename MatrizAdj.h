@@ -169,4 +169,31 @@ int quantAresta ( pGrafo grafo )
 
 }
 
+void imprimeRecomendacao ( pGrafo grafo, int u )
+{
+
+    for ( int j = 0; j < grafo -> tam; j++ )
+    {
+
+        if ( grafo -> matrizAdj [ u ] [ j ] == 1 )
+        {
+
+            for ( int k = 0; k < grafo -> tam; k++ )
+            {
+
+                if ( grafo -> matrizAdj [ j ] [ k ] == 1 && k != u && grafo -> matrizAdj [ u ] [ k ] == 0 )
+                {
+
+                    printf("Recomendacao : %d\n", k ) ;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
 #endif //UNTITLED_MATRIZADJ_H
