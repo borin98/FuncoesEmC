@@ -8,6 +8,7 @@ typedef struct Vertice
 {
 
     int dado ;
+    int vizitado ;
     struct Vertice *prox ;
 
 } Vertice ;
@@ -173,6 +174,54 @@ void imprimeAresta ( pGrafo grafo )
         }
 
     }
+
+}
+
+void vizitaVertices ( pGrafo grafo, int *componentes, int comp, int v )
+{
+
+    componentes [ v ] = comp ;
+
+    for ( pNo t = grafo -> adjacentes [ v ] ; t != NULL; t = t -> prox )
+    {
+
+        if ( componentes [ t -> dado ] == -1 )
+        {
+
+            vizitaVertices ( grafo, componentes, comp, t -> dado ) ;
+
+        }
+
+    }
+
+}
+
+int* encontraVerticesConexos ( pGrafo grafo )
+{
+
+    int c = 0 ;
+    int *componentes = malloc ( grafo -> tam * sizeof ( int ) ) ;
+
+    for ( int i = 0; i < grafo -> tam; i++ )
+    {
+
+        componentes [ i ] = -1 ;
+
+    }
+
+    for ( int i = 0; i < grafo -> tam; i++ )
+    {
+
+        if ( componentes [ i ] == -1 )
+        {
+
+            c ++ ;
+
+        }
+
+    }
+
+    return componentes ;
 
 }
 
