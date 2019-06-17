@@ -1,4 +1,3 @@
-
 #ifndef UNTITLED_MATRIZADJ_H
 #define UNTITLED_MATRIZADJ_H 1
 
@@ -193,6 +192,123 @@ void imprimeRecomendacao ( pGrafo grafo, int u )
         }
 
     }
+
+}
+
+/*
+ * Função auxiliar para buscar os n
+ */
+int buscaReq ( pGrafo grafo, int *visitados, int v, int t )
+{
+
+    if ( v == t )
+    {
+
+        return 1 ; // caso base da recursão
+
+    }
+
+    visitados [ v ] = 1 ;
+
+    // fazendo a busca nos elementos adjacentes dos vértices
+    for ( int i = 0; i < grafo -> tam; i++)
+    {
+
+        if ( grafo -> matrizAdj [ v ] [ i ] == 1 && visitados [ i ] == 0 )
+        {
+
+            if ( buscaReq ( grafo, visitados, i, t ) == 1 )
+            {
+
+                return 1 ;
+
+            }
+
+        }
+
+    }
+
+    return 0 ;
+
+}
+
+int buscaCiclo ( pGrafo g, int vi )
+{
+
+    int j = 0 ;
+    int i = vi ;
+    int sair = 0 ;
+
+    do
+    {
+
+        while ( j < g -> tam && sair == 0 )
+        {
+
+            // encontrou o ciclo
+            if ( g -> matrizAdj [ i ] [ j ] == 1 && j == vi )
+            {
+
+                return 1 ;
+
+            }
+
+            else if ( g -> matrizAdj [ i ] [ j ] == 1 )
+            {
+
+                sair = 1 ;
+                i ++ ;
+
+            }
+
+            else
+            {
+
+                j ++ ;
+
+            }
+
+        }
+
+        j = 0 ;
+        sair = 0 ;
+
+        if ( i == g -> tam )
+        {
+
+            i = 0 ;
+
+        }
+
+    } while ( i != vi ) ;
+
+    return 0 ; // caso não encontre nenhum ciclo
+
+}
+
+/* Busca por profundidade
+ * Função que verifica se tem caminho em dois vértices
+ * Neste caso, "s" e "t" são os vértices dos vértices
+ * e retorna 0 se não encontrar caminho
+ * e retorna 1 caso contrário
+ */
+int veriCaminho ( pGrafo grafo, int s, int t )
+{
+
+    int encontrou ;
+    int *vizitados = malloc ( grafo -> tam * sizeof ( int ) ) ; // vetor que contém os vértices processados ao longo do caminho
+
+    for ( int i = 0; i < grafo -> tam; i++ )
+    {
+
+        vizitados [ i ] = 0 ;
+
+    }
+
+    encontrou = buscaReq ( grafo, vizitados, s, t ) ;
+    free ( vizitados ) ;
+
+    return encontrou ;
 
 }
 
